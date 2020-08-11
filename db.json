@@ -2,7 +2,7 @@
   "dogs": [
     {
       "id": 1,
-      "name": "Baby",
+      "name": "Baby Boy",
       "breed": "German Shepard",
       "sex": "Male"
     },

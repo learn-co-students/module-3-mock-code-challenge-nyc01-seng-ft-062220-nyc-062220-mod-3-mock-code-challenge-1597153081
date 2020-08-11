@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    const table = document.querySelector("table.margin")
+    const table = document.getElementById("table-body")
     const dogForm = document.getElementById("dog-form")
     
     loadDogs()
@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     dogForm.addEventListener("submit",function(e){
         e.preventDefault()
-        console.log(e.target.dataset.id)
         const body = {
             name: e.target.name.value,
             breed: e.target.breed.value,
@@ -39,7 +38,9 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(function(response){ return response.json()})
         .then(function(dog){ updateDog(dog)})
 
-
+        // i made it so it just updates the row with the info once the patch has happened. but if they want a refresh on the whole page just
+        //write table.innerHTML = ""
+        //then loadup loadDogs()
         // the end of the dogForm click addeventlistener
     })
 
@@ -76,7 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateDog(dog){
     const dogRow = table.querySelector(`[data-id = "${dog.id}"]`).parentNode.parentNode
-    console.log(dogRow)
 
     dogRow.querySelector(".name").textContent = dog.name
     dogRow.querySelector(".breed").textContent = dog.breed
