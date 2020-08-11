@@ -1,0 +1,113 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const URL = "http://localhost:3000/dogs/"
+
+    function renderDogs() {
+        fetch(URL)
+            .then(res => res.json())
+            .then(dogs => dogs.forEach(dog => addDog(dog)))
+    }
+
+    function addDog(dog) {
+        const table = document.querySelector("tbody")
+        const dogRow = document.createElement("tr")
+
+        dogRow.dataset.id = dog.id
+        dogRow.classList.add("dog")
+
+        dogRow.innerHTML = `
+        <td>${dog.name}</td> 
+        <td>${dog.breed}</td> 
+        <td>${dog.sex}</td> 
+        <td><button>Edit</button></td>
+        `
+        table.append(dogRow)
+    }
+
+
+    function clickHandler() {
+        document.addEventListener("click", function(event) {
+            if (event.target.textContent === "Edit") {
+                let button = event.target
+                fetchDog(button)
+            }
+        })
+
+        document.addEventListener("submit", function(event) {
+
+            let values = event.target
+            let dogId = values.dataset.id
+
+            patchDog(event, values, dogId)
+            // renderDogs()
+            event.preventDefault()
+
+        })
+    }
+
+
+
+    function fetchDog(button) {
+        const dogRow = button.parentElement.parentElement
+        const dogId = dogRow.dataset.id
+
+        fetch(URL + dogId)
+            .then(res => res.json())
+            .then(dog => showDog(dog))
+    }
+
+
+    function showDog(dog) {
+        const nameField = document.querySelector("input[name]")
+        const breedField = document.querySelector(`input[name="breed"]`)
+        const sexField = document.querySelector(`input[name="sex"]`)
+        const form = nameField.parentElement
+        form.dataset.id = dog.id
+
+        nameField.value = dog.name
+        breedField.value = dog.breed
+        sexField.value = dog.sex
+    }
+
+    function patchDog(event, values, dogId) {
+        const nameField = document.querySelector("input[name]")
+        const breedField = document.querySelector(`input[name="breed"]`)
+        const sexField = document.querySelector(`input[name="sex"]`)
+
+        //for some reason this would not work pessimistically, did an optimistic rendering instead
+        const rows = document.querySelectorAll("tr")
+
+        rows.forEach(row => {
+            if (row.dataset.id === dogId) {
+                return row.innerHTML = `
+                    <td>${nameField.value}</td> 
+                    <td>${breedField.value}</td> 
+                    <td>${sexField.value}</td> 
+                    <td><button>Edit</button></td>
+                    `
+            }
+        })
+
+
+        const options = {
+            method: "PATCH",
+            headers: {
+                "content-type": "application/json",
+                "accept": "application/json"
+            },
+            body: JSON.stringify({
+                name: nameField.value,
+                breed: breedField.value,
+                sex: sexField.value
+            })
+        }
+
+        fetch(URL + dogId, options)
+            .then(res => res.json())
+            .then(values.reset())
+
+    }
+
+
+    clickHandler()
+    renderDogs()
+})
