@@ -46,6 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // On submit of the form, a PATCH request should be made to 
     // http://localhost:3000/dogs/:id to update the dog information (including name, breed and sex attributes).
 
+
     function submitForm(){
         document.addEventListener("submit", function(e) {
             e.preventDefault()
@@ -74,11 +75,17 @@ document.addEventListener('DOMContentLoaded', () => {
             body: JSON.stringify(options)
         })
         .then(response => response.json())
-        .then(dog =>renderDog(dog))
+        updateDog();      //it updates just on page refresh but it does go right to DB to update
+            
     }
 
+    function updateDog(dog) {
+        const updateName = dogForm.name.value
+        const updateBreed = dogForm.breed.value
+        const updateSex = dogForm.sex.value
+    }
+    fetchDogs()
     submitForm()
     clickHandler()
-    fetchDogs()
 
 })

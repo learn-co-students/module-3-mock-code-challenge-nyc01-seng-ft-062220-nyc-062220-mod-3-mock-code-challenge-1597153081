@@ -2,31 +2,31 @@
   "dogs": [
     {
       "id": 1,
-      "name": "Baba",
-      "breed": "Scottish Deerhound",
-      "sex": "male"
+      "name": "Cole",
+      "breed": "Lab",
+      "sex": "Male"
     },
     {
       "id": 2,
-      "name": "Teddy",
+      "name": "Callie",
       "breed": "Rhodesian Ridgeback",
       "sex": "female"
     },
     {
       "id": 3,
-      "name": "Reeses",
-      "breed": "Dachshund",
+      "name": "Georgia",
+      "breed": "Hound",
       "sex": "female"
     },
     {
       "id": 4,
-      "name": "Harvey",
+      "name": "Miley Cyrus",
       "breed": "Irish Spaniel",
       "sex": "male"
     },
     {
       "id": 5,
-      "name": "Gracie",
+      "name": "Stella",
       "breed": "Miniature Pinscher",
       "sex": "female"
     },
@@ -38,9 +38,9 @@
     },
     {
       "id": 7,
-      "name": "Diamond",
+      "name": "Murphy",
       "breed": "Labrador",
-      "sex": "female"
+      "sex": "Male"
     },
     {
       "id": 8,
@@ -104,7 +104,7 @@
     },
     {
       "id": 18,
-      "name": "Chance",
+      "name": "Kanye",
       "breed": "Toy Terrier",
       "sex": "male"
     },
