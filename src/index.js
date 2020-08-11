@@ -35,9 +35,10 @@ const URL = "http://localhost:3000/dogs/"
 
         document.addEventListener("submit", function(event) {
             event.preventDefault()
-            let submitEdits = event.target
-
-            console.log(submitEdits)
+            let values = event.target
+            let dogId = values.dataset.id
+            
+            patchDog(dogId)
         })
     }
 
@@ -63,6 +64,30 @@ const URL = "http://localhost:3000/dogs/"
         nameField.value = dog.name
         breedField.value = dog.breed
         sexField.value = dog.sex
+    }
+
+    function patchDog(dogId) {
+        const nameField = document.querySelector("input[name]").value
+        const breedField = document.querySelector(`input[name="breed"]`).value
+        const sexField = document.querySelector(`input[name="sex"]`).value
+       
+        options = {
+            method: "PATCH",
+            headers: {
+                "content-type": "application/json",
+                "accept": "application/json"
+            },
+            body: JSON.stringify({
+                name: nameField,
+                breed: breedField,
+                sex: sexField
+            })
+        }
+
+        fetch(URL + dogId, options)
+        .then(res => res.json())
+        .then(console.log)
+
     }
 
 
