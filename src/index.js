@@ -88,12 +88,15 @@ clickhandler=()=>{
                         'Content-Type': 'application/json',
                         'Accept': 'application/json',
                     },
-                    'body': JSON.stringify(dog)
+                    'body': JSON.stringify(
+                        { "name": formDogName.value}
+   
+                        )
                 }
-        
-                fetch(DOGS_URL+dogId)
-                    .then(console.log())
-                    
+            
+                fetch(DOGS_URL+dogId, options)
+                    .then(resp => resp.json())
+                    .then(resp => console.log(resp))
             }
         }
 
