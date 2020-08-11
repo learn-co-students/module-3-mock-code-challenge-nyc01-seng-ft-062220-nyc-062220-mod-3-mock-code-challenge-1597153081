@@ -45,10 +45,10 @@ const populateEditForm = (dogObj) => {
     dogForm[1].value = `${dogObj.breed}`
     dogForm[2].value = `${dogObj.sex}`
 
-    dogForm.addEventListener("submit", (e)=>{editDog(e, dogObj.id)})
+    dogForm.addEventListener("submit", (e)=>{editDogInDatabase(e, dogObj.id)})
 }
 
-const editDog = (e, dogId) => {
+const editDogInDatabase = (e, dogId) => {
     e.preventDefault()
     const dogIndex = parseInt(dogId) - 1
     let editedDog = {}

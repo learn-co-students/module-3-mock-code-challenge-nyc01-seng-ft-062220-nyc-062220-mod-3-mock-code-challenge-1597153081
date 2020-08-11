@@ -2,9 +2,9 @@
   "dogs": [
     {
       "id": 1,
-      "name": "Toopy Loopy",
-      "breed": "Rhodesian Ridgeback",
-      "sex": "female"
+      "name": "Oreo Moms",
+      "breed": "English Springer",
+      "sex": "male"
     },
     {
       "id": 2,
@@ -32,7 +32,7 @@
     },
     {
       "id": 6,
-      "name": "Oreo",
+      "name": "Oreo Mom",
       "breed": "English Springer",
       "sex": "male"
     },
