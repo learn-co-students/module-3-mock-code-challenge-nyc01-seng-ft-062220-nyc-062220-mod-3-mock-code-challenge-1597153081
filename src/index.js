@@ -23,12 +23,30 @@ document.addEventListener('DOMContentLoaded', () => {
         
         }
 
+        const editDogs = () => {
+
+            document.addEventListener('click', (event) => {
+                if (event.target === 'button')
+                const form = document.getElementById('dog-form')
+                const name = document.querySelector("#dog-form > input[type=text]:nth-child(1)")
+                const breed = document.querySelector("#dog-form > input[type=text]:nth-child(2)")
+                const sex = document.querySelector("#dog-form > input[type=text]:nth-child(3)")
+
+                name.innerText = dogs.name
+                breed.innerText = dogs.breed 
+                sex.innerText = dogs.sex
+
+                
+                
+            })
+        }
+
         //edit dogs by creating a click event and using the id set from the table 
         //create a submit handler to grab Dog attribute Objects then put it into the PATCH
         const dogSubmitHand = () => {
             document.addEventListener('submit', (event)=> {
 
-                const form = getElementById('dog-form')
+                const form = document.getElementById('dog-form')
                 form = event.target
 
                 event.preventDefault()
@@ -44,12 +62,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 }
 
-                postDogs(dogObj)
+                patchDogs(dogObj)
                 
             })
         }
 
-        const postDogs = () => {
+        const patchDogs = (dogObj) => {
             const options = {
                 method: 'PATCH',
                 headers: {
@@ -65,6 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         dogSubmitHand()
+        editDogs()
     })
 
 
