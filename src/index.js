@@ -38,19 +38,49 @@ document.addEventListener('DOMContentLoaded', () => {
             frag.appendChild(row)
         }
         tableBody.appendChild(frag);
+        // debugger;
     }
 
     const renderDogToRow = (dog) => {
         return `<td>${dog.name}</td> <td>${dog.breed}</td> <td>${dog.sex}</td> <td><button data-dog-id="${dog.id}">Edit</button></td>`
-
-        // const row = document.createElement("tr");
-        
-        // return row.innerHTML = `<td>${dog.name}</td> <td>${dog.breed}</td> <td>${dog.sex}</td> <td><button data-dog-id="${dog.id}">Edit</button></td>`
     }
 
+    const form = document.getElementById("dog-form");
+    const renderDogToForm = (dogId) => {
 
+    }
+
+    const clickHandler = () => {
+        
+        
+        document.addEventListener("click", e => {
+            const click = e.target
+            // if form, navigate DOM to grab all adjacent inputs above button
+            if (click.value === "Submit"){
+                console.log("form land")
+                // form stuff
+            } else if (e.target.textContent === "Edit") {
+                const dogId = click.dataset
+                debugger;
+            }
+
+            // else, listen for edit click only. ignore the rest.
+            console.log("Clicky")
+
+        })
+
+    }
+
+    // const formClickHandler = () => {
+    //     form.addEventListener("submit", e => {
+    //         console.log("Form Mode")
+    //         debugger;
+    //     })
+    // }
 
 getDogs();
+clickHandler();
+// formClickHandler();
 
 })
 
@@ -66,7 +96,8 @@ Notes for timed practice coding assessment at Flatiron School
 //         <tr><td>Dog *Name*</td> <td>*Dog Breed*</td> <td>*Dog Sex*</td> <td><button>Edit</button></td></tr>
 
 2-enable that edit button
-*   >> "Drop Down" Form
+*   >> "Drop Down" Form with dog's current info
+        -- linked dog id to button via dataset
     >> eventListener
     >> PATCH 
     >> Update DOM for "one page experience"
