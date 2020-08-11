@@ -9,6 +9,13 @@ document.addEventListener('DOMContentLoaded', () => {
         parseAndRenderDogs(result);
     }
 
+    const getDog = async (dogId, formObj) => {
+        let response = await fetch(PREFIX_URL+dogId);
+        let result = await response.json();
+        console.log(result)
+        formFieldGenerator(result,formObj);
+    }
+
     // params as placeholders for MVP design
     const updateDogs = async (dogId, dogObject) => {
 
@@ -49,6 +56,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
 
+    const dogToForm = (dogId) => {
+        return getDog(dogId)
+    }
+
+    const formFieldGenerator = async (dogObj, formObj) => {
+        const dogToForm = await dogObj
+        console.log(dogToForm)
+        const namePlaceholder = formObj.name.placeholder,
+                    breedPlaceholder = formObj.breed.placeholder,
+                    sexPlaceholder = formObj.sex.placeholder;
+        debugger;
+        // return dogObj.name
+    }
+
     const clickHandler = () => {
         
         
@@ -57,11 +78,17 @@ document.addEventListener('DOMContentLoaded', () => {
             // if form, navigate DOM to grab all adjacent inputs above button
             if (click.value === "Submit"){
                 console.log("form land")
-                // form stuff
+                formFieldGenerator(click.form)
+                const namePlaceholder = click.form.name,
+                    breedPlaceholder = click.form.breed,
+                    sexPlaceholder = click.form.sex;
+                debugger;
 
             // else listen for edit clicks 
             } else if (e.target.textContent === "Edit") {
-                const dogId = click.dataset
+                const form = document.getElementById("dog-form")
+                const dogId = click.dataset.dogId
+                getDog(dogId, form)
                 debugger;
             }
         })
