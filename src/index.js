@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const editForm = document.querySelector("#dog-form")
 
     const getDogs = () => {
+        // clearEditFormId()
         fetch(DOG_URL)
         .then(response => response.json())
         .then(dogs => renderDogs(dogs))
@@ -69,6 +70,32 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
 
+    const updateDogInfo = (dogRow,dog) => {
+        const dogFields = dogRow.querySelectorAll("td")
+        dogFields[0].innerText = dog.name
+        dogFields[1].innerText = dog.breed
+        dogFields[2].innerText = dog.sex
+    }
+
+    const updateDog = (dog) => {
+        const rows = table.querySelectorAll("tr")
+        for (const row of rows) {
+            if (editForm.dataset.dogId === row.dataset.tableId) {
+                updateDogInfo(row,dog)
+            }
+        }
+    }
+
+    const clearPlaceHolders = () => {
+        const dogFields = editForm.querySelectorAll("input")
+        dogFields[0].value = ""
+        dogFields[1].value = ""
+        dogFields[2].value = ""
+        // dogFields[0].setAttribute("placeholder", "dog's name")
+        // dogFields[1].setAttribute("placeholder", "dog's breed")
+        // dogFields[2].setAttribute("placeholder", "dog's sex")
+    }
+
     const submitHandler = () => {
         document.addEventListener("submit", function(e) {
             const submittedForm = e.target
@@ -78,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const dogObj = {
                         name: submittedForm.name.value,
                         breed: submittedForm.breed.value,
-                        age: submittedForm.sex.value
+                        sex: submittedForm.sex.value
                     }
 
                     const configObj = {
@@ -90,11 +117,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         body: JSON.stringify(dogObj)
                     }
                     fetch(DOG_URL + editForm.dataset.dogId,configObj)
-                    // .then(response => response.json())
-                    // .then(getDogs())
+                    .then(response => response.json())
+                    .then(dog => updateDog(dog))
+                    // .then(clearEditFormId())
+                    .then(clearPlaceHolders())
+                    .then(getDogs())
                     .catch(error => console.log(error))
-                    clearEditFormId()
-                    getDogs()
                 }
             } 
         })
