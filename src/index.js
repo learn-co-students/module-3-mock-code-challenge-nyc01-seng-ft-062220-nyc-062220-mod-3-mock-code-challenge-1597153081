@@ -21,10 +21,51 @@ const URL = "http://localhost:3000/dogs/"
         <td><button>Edit</button></td>
         `
 
-
         table.append(dogRow)
     }
 
 
+    function clickHandler() {
+        document.addEventListener("click", function(event) {
+            if (event.target.textContent === "Edit") {
+                let button = event.target
+                fetchDog(button)
+            }
+        })
+
+        document.addEventListener("submit", function(event) {
+            event.preventDefault()
+            let submitEdits = event.target
+
+            console.log(submitEdits)
+        })
+    }
+
+
+
+    function fetchDog(button) {
+        const dogRow = button.parentElement.parentElement
+        const dogId = dogRow.dataset.id
+        
+        fetch(URL + dogId)
+        .then(res => res.json())
+        .then(dog => showDog(dog))
+    }
+
+
+    function showDog(dog) {
+        const nameField = document.querySelector("input[name]")
+        const breedField = document.querySelector(`input[name="breed"]`)
+        const sexField = document.querySelector(`input[name="sex"]`)
+        const form = nameField.parentElement
+        form.dataset.id = dog.id
+        
+        nameField.value = dog.name
+        breedField.value = dog.breed
+        sexField.value = dog.sex
+    }
+
+
+clickHandler()
 renderDogs()
 })
