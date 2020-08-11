@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const renderDog = (dog) => {
             const newTr = document.createElement("tr")
+            newTr.dataset.tableId = dog.id
             const newTd1 = document.createElement("td")
             const newTd2 = document.createElement("td")
             const newTd3 = document.createElement("td")
@@ -50,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const setEditFormId = (dog) => {
-        editForm.dataset.dogId = dog.id
+        editForm.dataset.dogId = dog.dataset.tableId
     }
 
     const clearEditFormId = () => {
@@ -74,27 +75,26 @@ document.addEventListener('DOMContentLoaded', () => {
             if (submittedForm.matches("#dog-form")) {
                 e.preventDefault()
                 if (editForm.dataset.dogId !== "0") {
-
                     const dogObj = {
-                        name: submittedForm.name,
-                        breed: submittedForm.breed,
-                        age: submittedForm.age
+                        name: submittedForm.name.value,
+                        breed: submittedForm.breed.value,
+                        age: submittedForm.sex.value
                     }
 
                     const configObj = {
                         method: "PATCH",
-                        headers = {
-                            'Accept': 'application/json'
+                        headers: {
                             'Content-Type': 'application/json',
+                            'Accept': 'application/json'
                         },
                         body: JSON.stringify(dogObj)
                     }
-
                     fetch(DOG_URL + editForm.dataset.dogId,configObj)
-                    .then(response => response.json())
-                    .then(getDogs())
-                    .catch(console.log(error))
+                    // .then(response => response.json())
+                    // .then(getDogs())
+                    .catch(error => console.log(error))
                     clearEditFormId()
+                    getDogs()
                 }
             } 
         })
