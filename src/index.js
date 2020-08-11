@@ -1,4 +1,34 @@
+const PREFIX_URL = "http://localhost:3000/dogs/"
+
 document.addEventListener('DOMContentLoaded', () => {
+
+
+    const getDogs = async () => {
+        let response = await fetch(PREFIX_URL);
+        let result = await response.json();
+        console.log(result);
+    }
+
+    // params as placeholders for MVP design
+    const updateDogs = async (dogId, dogObject) => {
+
+        // dogObject = {}
+
+        const options = {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify(dogObject)
+        }
+
+        const response = await fetch(PREFIX_URL+dogId, options)
+        const result = await response.json();
+        // google error handling for pessimistic approach if time permits
+    }
+
+getDogs();
 
 })
 
