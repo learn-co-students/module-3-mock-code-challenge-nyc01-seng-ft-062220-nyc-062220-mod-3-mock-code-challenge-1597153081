@@ -109,9 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     .then(res => res.json())
                     .then(data => getDogList())
 
-                dogForm.name.value = ''
-                dogForm.breed.value = ''
-                dogForm.sex.value = ''
+                getDogList()
             }
         })
     }

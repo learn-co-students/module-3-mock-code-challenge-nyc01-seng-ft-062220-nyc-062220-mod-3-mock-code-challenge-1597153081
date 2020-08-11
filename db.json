@@ -2,15 +2,15 @@
   "dogs": [
     {
       "id": 1,
-      "name": "1",
-      "breed": "1",
-      "sex": "1"
+      "name": "test",
+      "breed": "test",
+      "sex": "test"
     },
     {
       "id": 2,
-      "name": "Teddy",
-      "breed": "Rhodesian Ridgeback",
-      "sex": "female"
+      "name": "test",
+      "breed": "test",
+      "sex": "test"
     },
     {
       "id": 3,
