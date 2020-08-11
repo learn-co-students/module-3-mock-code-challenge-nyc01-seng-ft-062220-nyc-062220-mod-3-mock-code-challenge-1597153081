@@ -86,9 +86,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // else listen for edit clicks 
             } else if (e.target.textContent === "Edit") {
-                const form = document.getElementById("dog-form")
+                const formObj = document.getElementById("dog-form")
                 const dogId = click.dataset.dogId
-                getDog(dogId, form)
+                // passing through formObj to formFieldGen
+                //? how do I handle this better? try, catch block with async?
+                getDog(dogId, formObj)
                 debugger;
             }
         })
