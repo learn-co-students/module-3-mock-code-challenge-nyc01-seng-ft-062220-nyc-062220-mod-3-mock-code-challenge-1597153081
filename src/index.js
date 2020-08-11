@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 const getDogs = () => {
     fetch("http://localhost:3000/dogs")
     .then(response => response.json())
-    .then(dogCollection => console.log(dogCollection))
+    .then(dogCollection => dogCollection)
 }
 
 
@@ -14,6 +14,7 @@ const tr = document.createElement("tr");
     tr.innerHTML = `
         <td>name</td> <td>breed</td> <td>sex</td> <td><button>Edit</button></td>`
 table.append(tr)
+
 
 
 const button = document.querySelector("button")
