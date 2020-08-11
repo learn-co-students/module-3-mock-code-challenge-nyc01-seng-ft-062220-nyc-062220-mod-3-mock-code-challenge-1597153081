@@ -44,7 +44,7 @@
     },
     {
       "id": 8,
-      "name": "Chloe",
+      "name": "Kylie",
       "breed": "Dandie Terrier",
       "sex": "male"
     },
@@ -56,13 +56,13 @@
     },
     {
       "id": 10,
-      "name": "Patches",
+      "name": "JCOLE",
       "breed": "Dingo",
       "sex": "male"
     },
     {
       "id": 11,
-      "name": "Jasper",
+      "name": "Jaspan",
       "breed": "Redbone",
       "sex": "female"
     },
@@ -80,7 +80,7 @@
     },
     {
       "id": 14,
-      "name": "Coco",
+      "name": "Coco Puff",
       "breed": "Maltese",
       "sex": "female"
     },

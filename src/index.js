@@ -75,15 +75,18 @@ document.addEventListener('DOMContentLoaded', () => {
             body: JSON.stringify(options)
         })
         .then(response => response.json())
-        updateDog();      //it updates just on page refresh but it does go right to DB to update
-            
+        .then(data => console.log(data))     //it updates just on page refresh but it does go right to DB to update   
     }
 
     function updateDog(dog) {
         const updateName = dogForm.name.value
+      
         const updateBreed = dogForm.breed.value
+       
         const updateSex = dogForm.sex.value
+       
     }
+   
     fetchDogs()
     submitForm()
     clickHandler()
