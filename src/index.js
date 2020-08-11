@@ -78,8 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const updateDog = (dogId) => {
 
-
-
         document.addEventListener("click", e => {
 
             if(e.target.matches("input#submit-button")) {
@@ -94,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const dog = {
                     name: newDogName,
                     breed: newDogBreed,
-                    newDogSex: newDogSex
+                    sex: newDogSex
                 }
 
                 const packet = {
@@ -106,7 +104,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     body: JSON.stringify(dog)
                 }
-
 
                 fetch(url + dogId, packet)
                     .then(res => res.json())
