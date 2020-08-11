@@ -42,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // DONE - populate form
         //grab new data
 
-
         document.addEventListener("click", e => {
             e.preventDefault()
 
@@ -79,6 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const updateDog = (dogId) => {
 
         document.addEventListener("click", e => {
+            e.preventDefault()
 
             if(e.target.matches("input#submit-button")) {
 
@@ -107,13 +107,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 fetch(url + dogId, packet)
                     .then(res => res.json())
+                    .then(data => getDogList())
 
-                getDogList()
+                dogForm.name.value = ''
+                dogForm.breed.value = ''
+                dogForm.sex.value = ''
             }
-
-
-
-
         })
     }
 

@@ -2,24 +2,21 @@
   "dogs": [
     {
       "id": 1,
-      "name": "test",
-      "breed": "test",
-      "sex": "male",
-      "newDogSex": "test"
+      "name": "1",
+      "breed": "1",
+      "sex": "1"
     },
     {
       "id": 2,
-      "name": "test",
-      "breed": "test",
-      "sex": "female",
-      "newDogSex": "test"
+      "name": "Teddy",
+      "breed": "Rhodesian Ridgeback",
+      "sex": "female"
     },
     {
       "id": 3,
-      "name": "test",
-      "breed": "test",
-      "sex": "female",
-      "newDogSex": "test"
+      "name": "Snickers",
+      "breed": "Dachshund",
+      "sex": "female"
     },
     {
       "id": 4,
@@ -35,10 +32,9 @@
     },
     {
       "id": 6,
-      "name": "test",
-      "breed": "test",
-      "sex": "male",
-      "newDogSex": "test"
+      "name": "Oreo",
+      "breed": "English Springer",
+      "sex": "male"
     },
     {
       "id": 7,
