@@ -4,7 +4,7 @@
       "id": 1,
       "name": "Baby",
       "breed": "Scottish Deerhound",
-      "sex": "male"
+      "sex": "maled"
     },
     {
       "id": 2,
@@ -22,7 +22,7 @@
       "id": 4,
       "name": "Harvey",
       "breed": "Irish Spaniel",
-      "sex": "male"
+      "sex": "malez"
     },
     {
       "id": 5,
@@ -39,7 +39,7 @@
     {
       "id": 7,
       "name": "Diamond",
-      "breed": "Labrador",
+      "breed": "Labradors",
       "sex": "female"
     },
     {

@@ -1,4 +1,5 @@
 const url = `http://localhost:3000/dogs`
+
 document.addEventListener('DOMContentLoaded', () => {
     const tableBody = document.querySelector(`#table-body`)
     const form = document.querySelector(`form`)
