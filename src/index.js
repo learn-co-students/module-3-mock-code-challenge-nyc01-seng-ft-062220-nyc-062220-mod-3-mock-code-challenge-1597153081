@@ -38,7 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
             frag.appendChild(row)
         }
         tableBody.appendChild(frag);
-        // debugger;
     }
 
     const renderDogToRow = (dog) => {
@@ -59,29 +58,19 @@ document.addEventListener('DOMContentLoaded', () => {
             if (click.value === "Submit"){
                 console.log("form land")
                 // form stuff
+
+            // else listen for edit clicks 
             } else if (e.target.textContent === "Edit") {
                 const dogId = click.dataset
                 debugger;
             }
-
-            // else, listen for edit click only. ignore the rest.
-            console.log("Clicky")
-
         })
 
     }
 
-    // const formClickHandler = () => {
-    //     form.addEventListener("submit", e => {
-    //         console.log("Form Mode")
-    //         debugger;
-    //     })
-    // }
 
 getDogs();
 clickHandler();
-// formClickHandler();
-
 })
 
 /* 
