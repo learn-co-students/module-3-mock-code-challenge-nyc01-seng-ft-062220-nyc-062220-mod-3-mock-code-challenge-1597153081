@@ -6,7 +6,6 @@ const url = "http://localhost:3000/dogs/"
 
 document.addEventListener('DOMContentLoaded', () => {
 
-
     const getDogList = () => {
 
         fetch(url)
@@ -17,6 +16,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const loadDogData = (data) => {
         //iterate through data to grab dog objects
         const dogBookShelf = document.getElementById("table-body")
+        while (dogBookShelf.firstChild) {
+            dogBookShelf.removeChild(dogBookShelf.lastChild)
+        }
+
+
         data.forEach(dog => {
             const dogCard = document.createElement('tr')
             const dogName = dog.name
@@ -61,48 +65,65 @@ document.addEventListener('DOMContentLoaded', () => {
                         <input type="text" name="name" placeholder="dog's name" value="${dogName}">
                         <input type="text" name="breed" placeholder="dog's breed" value="${dogBreed}">
                         <input type="text" name="sex" placeholder="dog's sex" value="${dogSex}">
-                        <input type="submit" value="Submit" />                     
+                        <input type="submit" value="Submit" id="submit-button" />                     
                         `
                         dogForm.innerHTML = newForm
 
-                        updateDog(dogId, dogName, dogBreed, dogSex)
+                        updateDog(dogId)
 
                     })
             }
         })
     }
 
-    const updateDog = (dogId, dogName, dogBreed, dogSex) => {
+    const updateDog = (dogId) => {
 
-        document.addEventListener("submit", e => {
 
-            const dog = {
-                name: dogName,
-                breed: dogBreed,
-                sex: dogSex
-            }
 
-            const packet = {
-                method: "PATCH",
-                headers: {
-                    "content-type": "application/json",
-                    "accept": "application/json"
-                },
-                body: JSON.stringify(dog)
+        document.addEventListener("click", e => {
 
-            }
+            if(e.target.matches("input#submit-button")) {
+
+                const button = e.target
+                const dogForm = button.parentElement
+
+                const newDogName = dogForm.name.value
+                const newDogBreed = dogForm.breed.value
+                const newDogSex = dogForm.sex.value
+
+                const dog = {
+                    name: newDogName,
+                    breed: newDogBreed,
+                    newDogSex: newDogSex
+                }
+
+                const packet = {
+                    method: "PATCH",
+                    headers: {
+                        "content-type": "application/json",
+                        "accept": "application/json"
+                    },
+
+                    body: JSON.stringify(dog)
+                }
+
 
                 fetch(url + dogId, packet)
                     .then(res => res.json())
+
+                getDogList()
+            }
+
+
+
+
         })
     }
 
 
-
-
-    getDogList()
     editDog()
-    updateDog()
+    getDogList()
+
 
 })
 
