@@ -34,11 +34,14 @@ const URL = "http://localhost:3000/dogs/"
         })
 
         document.addEventListener("submit", function(event) {
-            event.preventDefault()
+            
             let values = event.target
             let dogId = values.dataset.id
             
-            patchDog(dogId)
+            patchDog(event, values, dogId)
+            // renderDogs()
+            event.preventDefault()
+            
         })
     }
 
@@ -66,11 +69,26 @@ const URL = "http://localhost:3000/dogs/"
         sexField.value = dog.sex
     }
 
-    function patchDog(dogId) {
-        const nameField = document.querySelector("input[name]").value
-        const breedField = document.querySelector(`input[name="breed"]`).value
-        const sexField = document.querySelector(`input[name="sex"]`).value
+    function patchDog(event, values, dogId) {
+        const nameField = document.querySelector("input[name]")
+        const breedField = document.querySelector(`input[name="breed"]`)
+        const sexField = document.querySelector(`input[name="sex"]`)
        
+        //for some reason this would not work pessimistically, did an optimistic rendering instead
+        const rows = document.querySelectorAll("tr")
+          
+           rows.forEach(row => {
+                if (row.dataset.id === dogId) {
+                   return row.innerHTML = `
+                    <td>${nameField.value}</td> 
+                    <td>${breedField.value}</td> 
+                    <td>${sexField.value}</td> 
+                    <td><button>Edit</button></td>
+                    `
+                }
+            })    
+        
+
         options = {
             method: "PATCH",
             headers: {
@@ -78,16 +96,16 @@ const URL = "http://localhost:3000/dogs/"
                 "accept": "application/json"
             },
             body: JSON.stringify({
-                name: nameField,
-                breed: breedField,
-                sex: sexField
+                name: nameField.value,
+                breed: breedField.value,
+                sex: sexField.value
             })
         }
 
         fetch(URL + dogId, options)
         .then(res => res.json())
-        .then(console.log)
-
+        .then(values.reset())
+        
     }
 
 
