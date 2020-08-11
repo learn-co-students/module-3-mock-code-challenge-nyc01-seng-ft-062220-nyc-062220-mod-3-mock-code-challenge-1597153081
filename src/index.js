@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* 
 
+Notes for timed practice coding assessment at Flatiron School
+
 1-render list of dogs
 
     >> TABLE STRUCTURE
@@ -16,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     >> eventListener
     >> PATCH 
     >> Update DOM for "one page experience"
-
+        >> MVP - new GET request to refresh ALL
+        >> Stretch (time permitting) - update targeted Node to minimize API calls
 
 */
