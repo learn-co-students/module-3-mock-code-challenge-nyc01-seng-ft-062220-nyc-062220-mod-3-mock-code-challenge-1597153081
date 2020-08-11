@@ -6,6 +6,7 @@ const url = "http://localhost:3000/dogs/"
 
 document.addEventListener('DOMContentLoaded', () => {
 
+
     const getDogList = () => {
 
         fetch(url)
@@ -36,65 +37,72 @@ document.addEventListener('DOMContentLoaded', () => {
         // DONE - pull dog
         // DONE - populate form
         //grab new data
-        //post to server
-        //refresh list
+
 
         document.addEventListener("click", e => {
+            e.preventDefault()
 
+            if (e.target.matches("button")){
 
-            const dogForm = document.getElementById("dog-form")
+                const dogForm = document.getElementById("dog-form")
+                const button = e.target
+                const buttonParent = button.parentElement
+                const buttonGrandParent = buttonParent.parentElement
+                const dogId = buttonGrandParent.dataset.id
 
-            const button = e.target
-            const buttonParent = button.parentElement
-            const buttonGrandParent = buttonParent.parentElement
-            const dogId = buttonGrandParent.dataset.id
+                fetch(url + dogId)
+                    .then(res => res.json())
+                    .then(data => {
+                        const dogName = data.name
+                        const dogBreed = data.breed
+                        const dogSex = data.sex
 
-            fetch(url + dogId)
-                .then(res => res.json())
-                .then(data => {
-
-                    const dogName = data.name
-                    const dogBreed = data.breed
-                    const dogSex = data.sex
-
-                    const newForm = `                   
+                        const newForm = `                   
                         <input type="text" name="name" placeholder="dog's name" value="${dogName}">
                         <input type="text" name="breed" placeholder="dog's breed" value="${dogBreed}">
                         <input type="text" name="sex" placeholder="dog's sex" value="${dogSex}">
-                        <input type="submit" value="Submit">                      
+                        <input type="submit" value="Submit" />                     
                         `
-                    dogForm.innerHTML = newForm
+                        dogForm.innerHTML = newForm
 
-                    dogForm.addEventListener("submit", e => {
-
-                        console.log("submit")
-
+                        updateDog(dogId, dogName, dogBreed, dogSex)
 
                     })
+            }
+        })
+    }
 
+    const updateDog = (dogId, dogName, dogBreed, dogSex) => {
 
+        document.addEventListener("submit", e => {
 
+            const dog = {
+                name: dogName,
+                breed: dogBreed,
+                sex: dogSex
+            }
 
+            const packet = {
+                method: "PATCH",
+                headers: {
+                    "content-type": "application/json",
+                    "accept": "application/json"
+                },
+                body: JSON.stringify(dog)
 
+            }
 
-
-
-                })
-
-
-
-
-
-
-
-
-
-
+                fetch(url + dogId, packet)
+                    .then(res => res.json())
         })
     }
 
 
+
+
     getDogList()
     editDog()
+    updateDog()
 
 })
+
