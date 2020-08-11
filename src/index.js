@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const URL = 'http://localhost:3000/dogs'
     const formParent = document.getElementById("dog-form").parentElement
     const tableBody = document.querySelector("tbody")
+    const editForm = formParent.querySelector('#dog-form')
     let allDogs = []
 
     //api call to grab all dogs
@@ -45,34 +46,36 @@ document.addEventListener('DOMContentLoaded', () => {
     //event on-click edit Dog
     const editHandler = () => {
         tableBody.addEventListener('click', e => {
- 
             if(e.target.matches("button")){
                 const dogId = e.target.id
-                //invoke formHandler with dogId parameter
-                formHandler(dogId)
+                //find the dog obj from list
+                const currDog = allDogs.filter(dog => dog.id == dogId)
+
+                //update edit button form view
+                editForm.children[0].value = currDog[0].name
+                editForm.children[1].value = currDog[0].breed
+                editForm.children[2].value = currDog[0].sex
+                editForm.children[3].id = currDog[0].id
             }
         })
     }
 
 
-
     //forms submit invoked for above
-    const formHandler = (dogId) => {
-        const editForm = formParent.querySelector('#dog-form')
-        console.log(editForm)
+    const formHandler = () => {
         //eventListener
         editForm.addEventListener('submit', e => {
             e.preventDefault()
-            const dogName = editForm.children[0].value
-            const dogBreed = editForm.children[1].value
-            const dogSex = editForm.children[2].value
-           // console.log(dogId)
+            let dogName = editForm.children[0].value
+            let dogBreed = editForm.children[1].value
+            let dogSex = editForm.children[2].value
+            let dogId = editForm.children[3].id
             const dogObj = {
-                "id": dogId,
                 "name": dogName,
                 "breed": dogBreed,
                 "sex": dogSex
                 }
+            editDog(dogId, dogObj)
         })
 
     }
@@ -80,5 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
     //invoke
     fetchDogs()
     editHandler()
+    formHandler()
   
 })
