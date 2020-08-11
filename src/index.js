@@ -2,6 +2,12 @@ const PREFIX_URL = "http://localhost:3000/dogs/"
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    // helper function for MVP re-rendering Objective
+    const removeAllChildNodesFromParent = (parent) => {
+        while (parent.firstChild) {
+            parent.removeChild(parent.firstChild);
+        }
+    }
 
     const getDogs = async () => {
         let response = await fetch(PREFIX_URL);
@@ -15,10 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
         formFieldGenerator(result,formObj);
     }
 
-    // params ass for MVP design
     const updateDog = async (dogId, dogObject) => {
-
-        // dogObject = {}
 
         const options = {
             method: 'PATCH',
@@ -31,7 +34,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const response = await fetch(PREFIX_URL+dogId, options)
         const result = await response.json();
-        // google error handling for pessimistic approach if time permits
+        
+        // MVP implementation to re-rendering page dynamically
+        removeAllChildNodesFromParent(document.getElementById("table-body"))
+        getDogs();
     }
 
     const parseAndRenderDogs = (dogs) => {
@@ -48,10 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const renderDogToRow = (dog) => {
         return `<td>${dog.name}</td> <td>${dog.breed}</td> <td>${dog.sex}</td> <td><button data-id="${dog.id}">Edit</button></td>`
-    }
-
-    const form = document.getElementById("dog-form");
-   
+    }   
 
     const formFieldGenerator = async (dogObj, formObj) => {
         const submitBtn = document.querySelector('[type="submit"]');
@@ -68,10 +71,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const clickHandler = () => {
         
-        
         document.addEventListener("click", e => {
             const click = e.target
-            // if form, navigate DOM to grab all adjacent inputs above button
+
             if (click.value === "Submit"){
                 e.preventDefault();
                 const dogId = click.dataset.dogId;
@@ -84,7 +86,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateDog(dogId, dogFormObj);
                 click.form.reset()
 
-            // else listen for edit clicks 
             } else if (e.target.textContent === "Edit") {
                 const formObj = document.getElementById("dog-form")
                 const dogId = click.dataset.id
@@ -93,7 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 getDog(dogId, formObj)
             }
         })
-
     }
 
 
@@ -105,20 +105,10 @@ clickHandler();
 
 Notes for timed practice coding assessment at Flatiron School
 
-// 1-render list of dogs
-
-//     >> TABLE STRUCTURE
-//         NAME || BREED || SEX || EDIT DOG BUTTON
-//     >> HTML
-//         <tr><td>Dog *Name*</td> <td>*Dog Breed*</td> <td>*Dog Sex*</td> <td><button>Edit</button></td></tr>
-
-2-enable that edit button
-*   >> "Drop Down" Form with dog's current info
-        // -- linked dog id to button via dataset
-    // >> eventListener
-    >> PATCH 
-    >> Update DOM for "one page experience"
-        >> MVP - new GET request to refresh ALL
-        >> Stretch (time permitting) - update targeted Node to minimize API calls
+        >> Stretch 
+            - (time permitting) - update targeted Node to minimize API calls
+            - "Drop Down" Form with dog's current info
+            - async/await error handling with try/catch
+            - time permitting, refactor to do partial re-render with frags
 
 */
