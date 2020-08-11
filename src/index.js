@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const editForm = document.querySelector("#dog-form")
 
     const getDogs = () => {
-        // clearEditFormId()
         fetch(DOG_URL)
         .then(response => response.json())
         .then(dogs => renderDogs(dogs))
@@ -55,9 +54,9 @@ document.addEventListener('DOMContentLoaded', () => {
         editForm.dataset.dogId = dog.dataset.tableId
     }
 
-    const clearEditFormId = () => {
-        editForm.dataset.dogId = 0
-    }
+    // const clearEditFormId = () => {
+    //     editForm.dataset.dogId = 0
+    // }
 
     const clickHandler = () => {
         document.addEventListener("click", function(e) {
@@ -91,9 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
         dogFields[0].value = ""
         dogFields[1].value = ""
         dogFields[2].value = ""
-        // dogFields[0].setAttribute("placeholder", "dog's name")
-        // dogFields[1].setAttribute("placeholder", "dog's breed")
-        // dogFields[2].setAttribute("placeholder", "dog's sex")
     }
 
     const submitHandler = () => {
@@ -119,7 +115,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     fetch(DOG_URL + editForm.dataset.dogId,configObj)
                     .then(response => response.json())
                     .then(dog => updateDog(dog))
-                    // .then(clearEditFormId())
                     .then(clearPlaceHolders())
                     .then(getDogs())
                     .catch(error => console.log(error))
@@ -131,5 +126,4 @@ document.addEventListener('DOMContentLoaded', () => {
     getDogs()
     clickHandler()
     submitHandler()
-    clearEditFormId()
 })
