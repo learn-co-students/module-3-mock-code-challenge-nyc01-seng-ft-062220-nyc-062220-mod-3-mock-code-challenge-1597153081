@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const URL = 'http://localhost:3000/dogs'
-    const formId = document.getElementById("dog-form")
-    const formParent = document.getElementsByClassName("main flex")
+    const formParent = document.getElementById("dog-form").parentElement
     const tableBody = document.querySelector("tbody")
     let allDogs = []
 
@@ -43,17 +42,43 @@ document.addEventListener('DOMContentLoaded', () => {
         tableBody.append(tr)
     }
 
-    //event on-click 
+    //event on-click edit Dog
+    const editHandler = () => {
+        tableBody.addEventListener('click', e => {
+ 
+            if(e.target.matches("button")){
+                const dogId = e.target.id
+                //invoke formHandler with dogId parameter
+                formHandler(dogId)
+            }
+        })
+    }
 
 
-    //forms submit
-    const formHandler = () => {
-        formParent.querySelector('padding margin')
-        console.log(formParent)
+
+    //forms submit invoked for above
+    const formHandler = (dogId) => {
+        const editForm = formParent.querySelector('#dog-form')
+        console.log(editForm)
+        //eventListener
+        editForm.addEventListener('submit', e => {
+            e.preventDefault()
+            const dogName = editForm.children[0].value
+            const dogBreed = editForm.children[1].value
+            const dogSex = editForm.children[2].value
+           // console.log(dogId)
+            const dogObj = {
+                "id": dogId,
+                "name": dogName,
+                "breed": dogBreed,
+                "sex": dogSex
+                }
+        })
 
     }
 
     //invoke
     fetchDogs()
-    formHandler()
+    editHandler()
+  
 })
