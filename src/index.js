@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // params ass for MVP design
-    const updateDogs = async (dogId, dogObject) => {
+    const updateDog = async (dogId, dogObject) => {
 
         // dogObject = {}
 
@@ -47,21 +47,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const renderDogToRow = (dog) => {
-        return `<td>${dog.name}</td> <td>${dog.breed}</td> <td>${dog.sex}</td> <td><button data-dog-id="${dog.id}">Edit</button></td>`
+        return `<td>${dog.name}</td> <td>${dog.breed}</td> <td>${dog.sex}</td> <td><button data-id="${dog.id}">Edit</button></td>`
     }
 
     const form = document.getElementById("dog-form");
-    const renderDogToForm = (dogId) => {
-
-    }
-
-    const dogToForm = (dogId) => {
-        return getDog(dogId)
-    }
+   
 
     const formFieldGenerator = async (dogObj, formObj) => {
-        const dogToForm = await dogObj
-        console.log(dogToForm)
+        const submitBtn = document.querySelector('[type="submit"]');
         const nameForm = formObj.name,
                     breedForm = formObj.breed,
                     sexForm = formObj.sex;
@@ -70,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
         breedForm.value = dogObj.breed,
         sexForm.value = dogObj.sex;
 
-        // debugger;
+        submitBtn.dataset.dogId = dogObj.id;
     }
 
     const clickHandler = () => {
@@ -81,21 +74,23 @@ document.addEventListener('DOMContentLoaded', () => {
             // if form, navigate DOM to grab all adjacent inputs above button
             if (click.value === "Submit"){
                 e.preventDefault();
-                console.log("form land")
-                // const namePlaceholder = click.form.name,
-                //     breedPlaceholder = click.form.breed,
-                //     sexPlaceholder = click.form.sex;
-                // debugger;
+                const dogId = click.dataset.dogId;
+                const dogFormObj = {
+                    name: click.form.name.value,
+                    breed: click.form.breed.value,
+                    sex: click.form.sex.value
+                }
+
+                updateDog(dogId, dogFormObj);
                 click.form.reset()
 
             // else listen for edit clicks 
             } else if (e.target.textContent === "Edit") {
                 const formObj = document.getElementById("dog-form")
-                const dogId = click.dataset.dogId
+                const dogId = click.dataset.id
                 // passing through formObj to formFieldGen
                 //? how do I handle this better? try, catch block with async?
                 getDog(dogId, formObj)
-                // debugger;
             }
         })
 
