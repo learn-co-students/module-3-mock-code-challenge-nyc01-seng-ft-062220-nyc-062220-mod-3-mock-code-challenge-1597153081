@@ -12,11 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const getDog = async (dogId, formObj) => {
         let response = await fetch(PREFIX_URL+dogId);
         let result = await response.json();
-        console.log(result)
         formFieldGenerator(result,formObj);
     }
 
-    // params as placeholders for MVP design
+    // params ass for MVP design
     const updateDogs = async (dogId, dogObject) => {
 
         // dogObject = {}
@@ -63,11 +62,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const formFieldGenerator = async (dogObj, formObj) => {
         const dogToForm = await dogObj
         console.log(dogToForm)
-        const namePlaceholder = formObj.name.placeholder,
-                    breedPlaceholder = formObj.breed.placeholder,
-                    sexPlaceholder = formObj.sex.placeholder;
-        debugger;
-        // return dogObj.name
+        const nameForm = formObj.name,
+                    breedForm = formObj.breed,
+                    sexForm = formObj.sex;
+        
+        nameForm.value = dogObj.name,
+        breedForm.value = dogObj.breed,
+        sexForm.value = dogObj.sex;
+
+        // debugger;
     }
 
     const clickHandler = () => {
@@ -77,12 +80,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const click = e.target
             // if form, navigate DOM to grab all adjacent inputs above button
             if (click.value === "Submit"){
+                e.preventDefault();
                 console.log("form land")
-                formFieldGenerator(click.form)
-                const namePlaceholder = click.form.name,
-                    breedPlaceholder = click.form.breed,
-                    sexPlaceholder = click.form.sex;
-                debugger;
+                // const namePlaceholder = click.form.name,
+                //     breedPlaceholder = click.form.breed,
+                //     sexPlaceholder = click.form.sex;
+                // debugger;
+                click.form.reset()
 
             // else listen for edit clicks 
             } else if (e.target.textContent === "Edit") {
@@ -91,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // passing through formObj to formFieldGen
                 //? how do I handle this better? try, catch block with async?
                 getDog(dogId, formObj)
-                debugger;
+                // debugger;
             }
         })
 
@@ -115,8 +119,8 @@ Notes for timed practice coding assessment at Flatiron School
 
 2-enable that edit button
 *   >> "Drop Down" Form with dog's current info
-        -- linked dog id to button via dataset
-    >> eventListener
+        // -- linked dog id to button via dataset
+    // >> eventListener
     >> PATCH 
     >> Update DOM for "one page experience"
         >> MVP - new GET request to refresh ALL
