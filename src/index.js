@@ -26,7 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
             body: JSON.stringify(dogObj)
         }
         const res = await fetch(`${URL}/${id}`, settings)
-        const data = await res.json()
     }
 
 
@@ -70,12 +69,16 @@ document.addEventListener('DOMContentLoaded', () => {
             let dogBreed = editForm.children[1].value
             let dogSex = editForm.children[2].value
             let dogId = editForm.children[3].id
+            //create updated dog object for patch
             const dogObj = {
                 "name": dogName,
                 "breed": dogBreed,
                 "sex": dogSex
                 }
-            editDog(dogId, dogObj)
+                
+            //invoke patch update 
+            !dogObj.name ? alert('Invalid Entry!') : editDog(dogId, dogObj)
+
         })
 
     }
