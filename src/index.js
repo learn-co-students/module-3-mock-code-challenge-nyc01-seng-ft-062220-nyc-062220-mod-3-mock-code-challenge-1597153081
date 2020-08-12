@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 form.children[0].value = e.target.parentNode.parentNode.children[0].innerText
                 form.children[1].value = e.target.parentNode.parentNode.children[1].innerText
                 form.children[2].value = e.target.parentNode.parentNode.children[2].innerText
+                form.dataset.id = e.target.parentNode.parentNode.dataset.id
             }
         })
     }
@@ -47,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch(`http://localhost:3000/dogs/${num}`, options)
         .then(response => response.json())
         .then(updatedDog => {
+            //debugger
             const previousDogData = document.querySelector(`tr[data-id="${num}"]`)
             previousDogData.innerHTML = `
             <td>${updatedDog.name}</td>
@@ -58,21 +60,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    // document.addEventListener('submit', e => {
-    //     e.preventDefault()
-    //     const tdTags = document.querySelectorAll('td')
-    //     const dogName = e.target.parentNode.children[0].value 
-    //     let num = 0 
-    //     for (let i=0; i<tdTags.length; i++) {
-    //         if (tdTags[i].textContent == dogName) {
-    //             num = tdTags[i]
-    //             debugger
-    //             break
-    //         }
-    //     }
-    //     console.log(num)
-    //     pathDog(e.target)
-    // })
+    document.addEventListener('submit', e => {
+        e.preventDefault()
+        //patchDog(1)//parseInt(e.target.parentNode.dataset.id))
+        patchDog(e.target.dataset.id)
+    })
 
 
 
